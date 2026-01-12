@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestro 2024: Mes a Mes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rosa-suave: #fff0f5;
+      --rosa-fuerte: #d6336c;
+      --rosa-pastel: #ffc0cb;
+      --rosa-boton: #ffe4e1;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--rosa-suave);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      background-color: var(--rosa-pastel);
+      padding: 1.5rem 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5rem;
+      color: var(--rosa-fuerte);
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    #contenedor-meses {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      padding: 1rem;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    @media (max-width: 768px) {
+      #contenedor-meses { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      #contenedor-meses { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .mes-btn {
+      padding: 0.8rem;
+      background-color: var(--rosa-boton);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--rosa-fuerte);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mes-btn:hover {
+      transform: translateY(-2px);
+      background-color: white;
+      border-color: var(--rosa-fuerte);
+    }
+
+    /* ESTILO CARTA E INTERACCIÓN */
+    .seccion-nosotros {
+      margin: 1.5rem 0;
+      text-align: center;
+      perspective: 1000px;
+    }
+
+    .foto-portada {
+      background: white;
+      padding: 10px;
+      padding-bottom: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transform: rotate(-1deg);
+      display: inline-block;
+      cursor: pointer;
+      transition: transform 0.6s;
+    }
+
+    .foto-portada:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    .foto-portada img {
+      width: 180px;
+      height: 240px;
+      object-fit: cover;
+      border: 1px solid #eee;
+    }
+
+    .foto-portada figcaption {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      margin-top: 10px;
+      color: var(--rosa-fuerte);
+    }
+
+    /* Diseño de la carta que aparece al hacer clic */
+    #carta-amor {
+      display: none;
+      max-width: 500px;
+      background: #fdfcf0; /* Color papel */
+      padding: 30px;
+      margin: 20px;
+      border-left: 10px solid var(--rosa-pastel);
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      text-align: left;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .mes-detalle {
+      display: none;
+      padding: 1rem;
+      animation: fadeIn 0.6s ease forwards;
+      text-align: center;
+      width: 100%;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .galeria figure {
+      width: 280px;
+      background: white;
+      padding: 12px;
+      padding-bottom: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      margin: 0;
+    }
+
+    .galeria img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+
+    .volver-btn {
+      margin: 2rem 0;
+      padding: 10px 30px;
+      background-color: var(--rosa-fuerte);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: var(--rosa-pastel);
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      margin-top: auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Nuestro 2024</h1>
+    <p>Nuestro Primer Año Juntitos mi Amor ❤️</p>
+  </header>
+
+  <main>
+    <div id="contenedor-meses"></div>
+
+    <div id="portada-principal" class="seccion-nosotros">
+      <div id="foto-click" class="foto-portada" onclick="abrirCarta()">
+        <img src="Nosotros.jpeg" alt="Nosotros">
+        <figcaption>Haz click aquí ❤️</figcaption>
+      </div>
+
+      <div id="carta-amor">
+        Mi hermosha Valery,<br><br>
+        Quiero empezar diciendote que el tiempo que he estado a tu lado ha sido el más especial en mi vida, guardo con mucho cariño cada recuerdo, momento juntos en las salidas o tiempo
+        compartido en familia y también los momentos en los que ambos nos hemos apoyado para seguir mejorando como la pareja que somos mi amor.  <br>
+        Sé que han habido algunas caídas o diferencias a lo largo del tiempo que llevamos, pero el amor que nos tenemos demuestra que es más fuerte y que podemos continuar amándonos cada
+        día más y aprendiendo juntos en el camino para no equivocarnos. <br>
+        Espero que te guste este detalle mi niña, eres por quién más me esfuerzo e intento superar, mi mayor motivación amor, aunque hayamos vivido más experiencias en estos ya dos años juntos,
+        no quize que se perdiera este regalito de nuestro primer aniversario mi niña. <br>
+        Gracias por cada risa, cada beso y cada momento tan especial juntos.<br><br>
+        Con mucho mucho mucho amor, Julio.
+        <br><br>
+        <button class="volver-btn" style="font-size: 0.8rem; padding: 5px 15px;" onclick="cerrarCarta()">Cerrar carta</button>
+      </div>
+    </div>
+
+    <div id="detalles-mes"></div>
+  </main>
+
+  <footer>
+    "Gracias por compartir cada momento conmigo mi niña. Feliz aniversario."
+  </footer>
+
+  <script>
+    const recuerdos = {
+      "Febrero": [
+        { img: "Febrero1.jpeg", txt: "Inicio de nuestra Historia 🥺💕 02/02/2024" },
+        { img: "Febrero2.jpeg", txt: "Primeras Flores que te di 14/02/2024" },
+        { img: "Febrero3.jpeg", txt: "Regalito de mi niña <3 14/02/2024" }
+      ],
+      "Marzo": [
+        { img: "Marzo1.jpeg", txt: "Nuestro fondo de pantalla 16/03/2024" },
+        { img: "Marzo3.jpeg", txt: "En el festival Cherry Blossom 30/03/2024" },
+        { img: "Marzo2.jpeg", txt: "Nuestros nombres en Coreano 30/03/2024" }
+      ],
+      "Abril": [{ img: "Abril1.jpeg", txt: "Cineeee <3" }],
+      "Mayo": [
+        { img: "Mayo1.jpeg", txt: "En Barranco, celebramos nuestro mesario 01/05/2024" },
+        { img: "Mayo2.jpeg", txt: "En el parque de las aguas 05/05/2024" },
+        { img: "Mayo3.jpeg", txt: "Parque de la Amistad y chocolate caliente 18/05/2024" }
+      ],
+      "Junio": [
+        { img: "Junio1.jpeg", txt: "Celebrando nuestro mesario 02/06/2024" },
+        { img: "Junio3.jpeg", txt: "Celebrando nuestros cumpleaños 10/06/2024" },
+        { img: "Junio2.jpeg", txt: "Paseando en el trencito 22/06/2024" }
+      ],
+      "Julio": [{ img: "Julio1.jpeg", txt: "Almuerzo en Plaza San Miguel y Beshito" }],
+      "Agosto": [
+        { img: "Agosto1.jpeg", txt: "Inicio del 6to mes juntitos 02/08/2024" },
+        { img: "Agosto2.jpeg", txt: "Comiendo lasagna 😋" },
+        { img: "Agosto3.jpeg", txt: "Celebrando nuestro 6to mes" }
+      ],
+      "Septiembre": [
+        { img: "Septiembre1.jpeg", txt: "Fotito en el espejo 😳💕" },
+        { img: "Septiembre2.jpeg", txt: "Flores amarillas 21/09/2024" }
+      ],
+      "Octubre": [{ img: "Octubre1.jpeg", txt: "Regalito Edición Especial <3" }],
+      "Noviembre": [{ img: "Noviembre1.jpeg", txt: "Cafetería Delitoz 25/11/2024" }],
+      "Diciembre": [
+        { img: "Diciembre1.jpeg", txt: "Mi niña preparando Cupcakes 😋" },
+        { img: "Diciembre2.jpeg", txt: "Pijamitas de regalo de navidad :3" }
+      ],
+      "Enero": [
+        { img: "Enero1.jpeg", txt: "Heladito en Barranco 12/01/2025" },
+        { img: "Enero2.jpeg", txt: "Comprando ropita en Saga 26/01/2025" },
+        { img: "Enero3.jpeg", txt: "Nuestro fondo de chat 24/01/2025" }
+      ]
+    };
+
+    const ordenMeses = ["Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", "Enero"];
+    const contenedor = document.getElementById('contenedor-meses');
+    const detalle = document.getElementById('detalles-mes');
+    const portada = document.getElementById('portada-principal');
+
+    ordenMeses.forEach((mes) => {
+      const boton = document.createElement('button');
+      boton.className = 'mes-btn';
+      boton.textContent = mes;
+      boton.onclick = () => mostrarMes(mes);
+      contenedor.appendChild(boton);
+    });
+
+    // FUNCIONES PARA LA CARTA
+    function abrirCarta() {
+      document.getElementById('foto-click').style.display = 'none';
+      document.getElementById('carta-amor').style.display = 'block';
+    }
+
+    function cerrarCarta() {
+      document.getElementById('foto-click').style.display = 'inline-block';
+      document.getElementById('carta-amor').style.display = 'none';
+    }
+
+    function mostrarMes(nombreMes) {
+      contenedor.style.display = 'none';
+      portada.style.display = 'none';
+      detalle.innerHTML = '';
+      const seccion = document.createElement('section');
+      seccion.className = 'mes-detalle';
+      seccion.style.display = 'block';
+      let galeriaHTML = '';
+      const fotos = recuerdos[nombreMes] || [];
+      fotos.forEach(foto => {
+        galeriaHTML += `<figure><img src="${foto.img}"><figcaption>${foto.txt}</figcaption></figure>`;
+      });
+      seccion.innerHTML = `<h2 style="font-family:'Pacifico';color:var(--rosa-fuerte);font-size:2.5rem">${nombreMes}</h2><div class="galeria">${galeriaHTML}</div><button class="volver-btn" onclick="volverMenu()">Regresar al Menú ❤️</button>`;
+      detalle.appendChild(seccion);
+      window.scrollTo(0, 0);
+    }
+
+    function volverMenu() {
+      detalle.innerHTML = '';
+      contenedor.style.display = 'grid';
+      portada.style.display = 'block';
+      // Aseguramos que al volver siempre se vea la foto y no la carta abierta
+      cerrarCarta();
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
